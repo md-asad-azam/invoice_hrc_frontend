@@ -1,0 +1,13 @@
+.tableRow{
+    border: 1px solid white;
+    margin: 1px;
+}
+.tableRow .checkBoxContainer{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    position: relative;
+}
+.checkBoxContainer > input{
+    height: 1vmax;
+}

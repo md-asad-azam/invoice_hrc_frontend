@@ -1,0 +1,129 @@
+.headerContainer{
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--background1);
+    width: 100vw;
+    z-index: 10;
+}
+.headerContainer > #first{
+    height: 3vmax;
+    width: 15vmax;
+}
+.headerContainer > #second{
+    height: 3vmax;
+}
+
+.buttonsContainer{
+    display: flex;
+    position: fixed;
+    width: 99vw;
+    top: 3vmax;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: var(--background1);
+    z-index: 10;
+}
+.firstThreeButtonsContainer,
+.lastThreeButtonsContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1vmax 0;
+}
+.firstThreeButtonsContainer > .btn:first-child{
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.firstThreeButtonsContainer > .btn:last-child{
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.btn{
+    color: white;
+    padding: 0.5vmax 2vmax;
+    border: 1px solid var(--light-blue);
+    background: transparent;
+    transition: all 0.5s;
+}
+.btn:hover{
+    background-color: var(--light-blue);
+    border-color: white;
+}
+#customerId{
+    padding: 1vmax;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+.lastThreeButtonsContainer > .btn{
+    padding: 0.5vmax 4vmax;
+}
+
+.addPopup{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    
+}
+.addPopup > div{
+    height: 85vh;
+    width: 90vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background: var(--background1);
+    border-radius: 5vmax;
+    border: 2px solid white;
+}
+.addPopup > div > h3{
+    color: white;
+    font: 400 3vmax var(--my-font);
+    padding: 0 2vmax;
+    border-bottom: 1px solid white;
+}
+.addPopup > div > .popupInputContainer{
+    display: grid;
+    height: 40vh;
+    grid-template-columns: repeat(4, auto);
+    grid-gap: 2vmax;
+}
+.addPopup > div > .popupButtonContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.addPopup > div > .popupButtonContainer > .popupBtn{
+    width: 30%;
+    margin: 0 2vmax;
+    padding: 1vmax;
+    color: white;
+    font: 300 1.5vmax var(--my-font);
+    border: 1px solid white;
+    border-radius: 1vmax;
+    background: transparent;
+    cursor: pointer;
+}
+.addPopup > div > .popupButtonContainer > .popupBtn:hover{
+    background: var(--background2);
+}
+
+.openTab{
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    transition: all 0.1s;
+}
+.closeTab{
+    display: hidden;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+}
