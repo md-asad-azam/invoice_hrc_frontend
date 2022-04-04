@@ -3,11 +3,24 @@
 *{
   margin: 0;
   padding: 0;
+  outline: none;
 }
 
 :root {
   --background1: #2D4351;
   --background2: #293C4A;
+  --background3: #22333f;
   --light-blue: #15AFF0;
   --my-font: 'Montserrat', sans-serif;
+}
+
+input:focus::placeholder{ /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--light-blue);
+  opacity: 1; /* Firefox */
+}
+input:focus:-ms-input-placeholder:focus { /* Internet Explorer 10-11 */
+  color: var(--light-blue);
+}
+input:focus::-ms-input-placeholder:focus { /* Microsoft Edge */
+  color: var(--light-blue);
 }

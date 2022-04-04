@@ -2,6 +2,9 @@
     border: 1px solid white;
     margin: 1px;
 }
+.tableRow:hover{
+    background-color: var(--background3);
+}
 .tableRow .checkBoxContainer{
     display: flex;
     justify-content: space-evenly;

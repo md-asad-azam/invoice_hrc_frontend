@@ -17,13 +17,13 @@ const Body = () => {
 
   const getData = async () => {
 
-    const link = `http://localhost:8080/HRC_internship/getAllData?page=${page}&resultPerPage=${resultPerPage}`
+    const link = `http://localhost:8080/HRC_internship/fetch?page=${page}&resultPerPage=${resultPerPage}`
     try {
 
       const { data } = await axios.get(link)
       setDisplayData(data)
 
-      const result = await axios.get(`http://localhost:8080/HRC_internship/countData`)
+      const result = await axios.get(`http://localhost:8080/HRC_internship/count`)
       setTotalCount(result.data)
 
     } catch (error) {

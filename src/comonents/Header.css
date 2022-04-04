@@ -61,16 +61,13 @@
     padding: 0.5vmax 4vmax;
 }
 
-.addPopup{
+.Popup{
     display: flex;
     align-items: center;
     justify-content: center;
     background: rgba(0, 0, 0, 0.5);
-    
 }
-.addPopup > div{
-    height: 85vh;
-    width: 90vw;
+.Popup > div{
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -79,25 +76,26 @@
     border-radius: 5vmax;
     border: 2px solid white;
 }
-.addPopup > div > h3{
+.Popup > div > h3{
     color: white;
     font: 400 3vmax var(--my-font);
     padding: 0 2vmax;
     border-bottom: 1px solid white;
 }
-.addPopup > div > .popupInputContainer{
+.Popup > div > .popupInputContainer{
     display: grid;
-    height: 40vh;
-    grid-template-columns: repeat(4, auto);
     grid-gap: 2vmax;
 }
-.addPopup > div > .popupButtonContainer{
+.Popup > div > .popupInputContainer input{
+    padding: 0.5vmax;
+}
+.Popup > div > .popupButtonContainer{
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
 }
-.addPopup > div > .popupButtonContainer > .popupBtn{
+.Popup > div > .popupButtonContainer > .popupBtn{
     width: 30%;
     margin: 0 2vmax;
     padding: 1vmax;
@@ -108,10 +106,49 @@
     background: transparent;
     cursor: pointer;
 }
-.addPopup > div > .popupButtonContainer > .popupBtn:hover{
+.Popup > div > .popupButtonContainer > .popupBtn:hover{
     background: var(--background2);
 }
 
+.advSearchPopup > div{
+    height: 50vh;
+    width: 40vw;
+}
+.advSearchPopup > div > .popupInputContainer{
+    grid-template-columns: repeat(2, auto);
+}
+
+.addPopup > div{
+    height: 85vh;
+    width: 90vw;
+}
+.addPopup > div > .popupInputContainer{
+    height: 40%;
+    grid-template-columns: repeat(4, auto);
+}
+
+.editPopup > div{
+    height: 40vh;
+    width: 40vw;
+}
+.editPopup > div > .popupInputContainer{
+    grid-template-columns: repeat(2, auto);
+}
+
+.deletePopup > div{
+    height: 40vh;
+    width: 40vw;
+}
+.deletePopup > div > h3{
+    color: white;
+    font: 400 2vmax var(--my-font);
+}
+.deletePopup > div > p{
+    color: white;
+    font: 400 1.5vmax var(--my-font);
+}
+
+/* Utilitu classes */
 .openTab{
     height: 100vh;
     width: 100vw;
@@ -127,3 +164,27 @@
     width: 0;
     overflow: hidden;
 }
+.inputPlaceholder{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    border-bottom: 2.5px solid transparent;
+    transition: all 0.5s;
+}
+.inputPlaceholder > p{
+    position: absolute;
+    top: 2px;
+    padding-left: 0.6vmax;
+    font-size: 1vmax;
+    font-family: sans-serif;
+    color: rgb(117,117,117);
+}
+.inputPlaceholder > input{
+    height: 100%;
+    width: 90%;
+}
+/* .inputPlaceholder:{
+    border-bottom: 2.5px solid var(--light-blue);
+    color: var(--light-blue);
+} */

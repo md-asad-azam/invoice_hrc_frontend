@@ -1,31 +1,23 @@
 import React, { useRef, useState } from 'react'
-import { getTodaysDate } from "../utility/utilFunc"
+import AddPopup from './Popups/AddPopup'
+import EditPopup from './Popups/EditPopup'
 import "./Header.css"
+import AdvSearchPopup from './Popups/AdvSearchPopup'
 
 const Header = () => {
 
-    const addTabContainer = useRef(null)
-    const today = getTodaysDate()
-    const [date, setDate] = useState({
-        ClearDate: today,
-        PostingDate: today,
-        DocumentCreateDate: today,
-        DueDate: today,
-        BaselineCreateDate: today
-    })
-    const { ClearDate, PostingDate, DocumentCreateDate, DueDate, BaselineCreateDate } = date
+    const advSearchTab = useRef(null)
+    const addTab= useRef(null)
+    const editTab = useRef(null)
+    const deleteTab = useRef(null)
 
-    const handleDateChange = (e) => {
-        setDate({ ...date, [e.target.name]: e.target.value })
+    const openTab = (tab) => {
+        tab.current.classList.remove("closeTab")
+        tab.current.classList.add("openTab")
     }
-
-    const openAddTab = () => {
-        addTabContainer.current.classList.remove("closeTab")
-        addTabContainer.current.classList.add("openTab")
-    }
-    const closeAddTab = () => {
-        addTabContainer.current.classList.remove("openTab")
-        addTabContainer.current.classList.add("closeTab")
+    const closeTab = (tab) => {
+        tab.current.classList.remove("openTab")
+        tab.current.classList.add("closeTab")
     }
 
 
@@ -47,7 +39,7 @@ const Header = () => {
                 <div className="firstThreeButtonsContainer">
                     <button className="btn">PREDICT</button>
                     <button className="btn">ANALYTICS VIEW</button>
-                    <button className="btn">ADVANCE SEARCH</button>
+                    <button className="btn" onClick={() => openTab(advSearchTab)}>ADVANCE SEARCH</button>
                 </div>
                 <input
                     type="text"
@@ -56,35 +48,49 @@ const Header = () => {
                     placeholder='Search Customer Id'
                 />
                 <div className="lastThreeButtonsContainer">
-                    <button className="btn" onClick={openAddTab}>ADD</button>
-                    <button className="btn" >EDIT</button>
-                    <button className="btn" >DELETE</button>
+                    <button className="btn" onClick={() => openTab(addTab)}>ADD</button>
+                    <button className="btn" onClick={() => openTab(editTab)}>EDIT</button>
+                    <button className="btn" onClick={() => openTab(deleteTab)}>DELETE</button>
                 </div>
             </div>
 
-            <div className="addPopup closeTab" ref={addTabContainer}>
+            <div className="Popup advSearchPopup closeTab" ref={advSearchTab}>
                 <div className="container">
-                    <h3>Add</h3>
-                    <div className="popupInputContainer" >
-                        <input type="text" name="BusinessCode" placeholder='Business Code' />
-                        <input type="text" name="CustomerNumber" placeholder='Customer Number' />
-                        <input type="date" name="ClearDate" placeholder='Clear Date' value={ClearDate} onChange={(e) => handleDateChange(e)} />
-                        <input type="text" name="BusinessYear" placeholder='Business Year' />
-                        <input type="text" name="DocumentId" placeholder='Document Id' />
-                        <input type="date" name="PostingDate" placeholder='Posting Date' value={PostingDate} onChange={(e) => handleDateChange(e)} />
-                        <input type="date" name="DocumentCreateDate" placeholder='Document Create Date' value={DocumentCreateDate} onChange={(e) => handleDateChange(e)} />
-                        <input type="date" name="DueDate" placeholder='Due Date' value={DueDate} onChange={(e) => handleDateChange(e)} />
-                        <input type="text" name="InvoiceCurrency" placeholder='Invoice Currency' />
-                        <input type="text" name="DocumentType" placeholder='Document Type' />
-                        <input type="text" name="Postingid" placeholder='Posting id' />
-                        <input type="text" name="TotalOpenAmount" placeholder='Total Open Amount' />
-                        <input type="date" name="BaselineCreateDate" placeholder='Baseline Create Date' value={BaselineCreateDate} onChange={(e) => handleDateChange(e)} />
-                        <input type="text" name="CustomerPaymentTerms" placeholder='Customer Payment Terms' />
-                        <input type="text" name="Invoiceid" placeholder='Invoice id' />
+                    <AdvSearchPopup />
+                    <div className="popupButtonContainer">
+                        <button className='popupBtn' >Search</button>
+                        <button className='popupBtn' onClick={() => closeTab(advSearchTab)}>Cancel</button>
                     </div>
+                </div>
+            </div>
+
+            <div className="Popup addPopup closeTab" ref={addTab}>
+                <div className="container">
+                    <AddPopup />
                     <div className="popupButtonContainer">
                         <button className='popupBtn' >Add</button>
-                        <button className='popupBtn' onClick={closeAddTab}>Cancel</button>
+                        <button className='popupBtn' onClick={() => closeTab(addTab)}>Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+            <div className="Popup editPopup closeTab" ref={editTab}>
+                <div className="container">
+                    <EditPopup />
+                    <div className="popupButtonContainer">
+                        <button className='popupBtn' >Edit</button>
+                        <button className='popupBtn' onClick={() => closeTab(editTab)}>Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+            <div className="Popup deletePopup closeTab" ref={deleteTab}>
+                <div className="container">
+                    <h3>Delete Record ?</h3>
+                    <p>Are you sure you want to delete the record[s]?</p>
+                    <div className="popupButtonContainer">
+                        <button className='popupBtn' >Delete</button>
+                        <button className='popupBtn' onClick={() => closeTab(deleteTab)}>Cancel</button>
                     </div>
                 </div>
             </div>
