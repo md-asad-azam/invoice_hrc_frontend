@@ -182,11 +182,10 @@ EnhancedTableHead.propTypes = {
 
 export default function TableDataGrid(props) {
 
-  const { rows } = props
+  const { rows, selected, setSelected } = props
 
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
-  const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 

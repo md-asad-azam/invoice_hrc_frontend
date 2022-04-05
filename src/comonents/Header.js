@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { getTodaysDate } from '../utility/utilFunc'
 import TableDataGrid from './TableDataGrid'
-import { requestAddData, requestGetData } from '../utility/requestServer'
+import { requestAddData, requestAdvanceSearch, requestDeleteData, requestGetData, requestNormalSearch } from '../utility/requestServer'
 import "./Header.css"
 
 const Header = () => {
@@ -25,6 +25,7 @@ const Header = () => {
     const [custNumber, setCustNumber] = useState("")
     const [displayData, setDisplayData] = useState([])
     const [totalCount, setTotalCount] = useState(0)
+    const [selected, setSelected] = useState([])
     const [data, setData] = useState({
         clear_date: today,
         posting_date: today,
@@ -52,9 +53,21 @@ const Header = () => {
     }
 
     const getData = async () => {
-        const data = await requestGetData()
-        setDisplayData(data[0])
-        setTotalCount(data[1])
+        const res = await requestGetData()
+        setDisplayData(res[0])
+        setTotalCount(res[1])
+    }
+
+    const handleNormalSearch = async (e) => {
+        e.preventDefault()
+        const res = await requestNormalSearch(data)
+        setDisplayData(res)
+    }
+
+    const handleAdvanceSearch = async () => {
+        const res = await requestAdvanceSearch(data)
+        closeTab(advSearchTab)
+        setDisplayData(res)
     }
 
     useEffect(() => {
@@ -83,12 +96,16 @@ const Header = () => {
                     <button className="btn">ANALYTICS VIEW</button>
                     <button className="btn" onClick={() => openTab(advSearchTab)}>ADVANCE SEARCH</button>
                 </div>
-                <input
-                    type="text"
-                    name="customerId"
-                    id="customerId"
-                    placeholder='Search Customer Id'
-                />
+                <form onSubmit={(e) => handleNormalSearch(e)}>
+                    <input
+                        type="text"
+                        name="cust_number"
+                        id="customerId"
+                        placeholder='Search Customer Id'
+                        value={cust_number}
+                        onChange={(e) => handleDataChange(e)}
+                    />
+                </form>
                 <div className="lastThreeButtonsContainer">
                     <button className="btn" onClick={() => openTab(addTab)}>ADD</button>
                     <button className="btn" onClick={() => openTab(editTab)}>EDIT</button>
@@ -96,24 +113,24 @@ const Header = () => {
                 </div>
             </div>
 
-{/* ADVANCE SEARCH POPUP */}
+            {/* ADVANCE SEARCH POPUP */}
             <div className="Popup advSearchPopup closeTab" ref={advSearchTab}>
                 <div className="container">
                     <h3>Advance Search</h3>
                     <div className="popupInputContainer" >
-                        <input type="text" name="DocumentId" placeholder='Document Id' />
-                        <input type="text" name="Invoiceid" placeholder='Invoice id' />
-                        <input type="text" name="CustomerNumber" placeholder='Customer Number' />
-                        <input type="text" name="BusinessYear" placeholder='Business Year' />
+                        <input type="text" name="doc_id" value={doc_id} placeholder='Document Id' onChange={(e) => handleDataChange(e)} />
+                        <input type="text" name="invoice_id" value={invoice_id} placeholder='Invoice id' onChange={(e) => handleDataChange(e)} />
+                        <input type="text" name="cust_number" value={cust_number} placeholder='Customer Number' onChange={(e) => handleDataChange(e)} />
+                        <input type="text" name="buisness_year" value={buisness_year} placeholder='Business Year' onChange={(e) => handleDataChange(e)} />
                     </div>
                     <div className="popupButtonContainer">
-                        <button className='popupBtn' >Search</button>
+                        <button className='popupBtn' onClick={() => handleAdvanceSearch()}>Search</button>
                         <button className='popupBtn' onClick={() => closeTab(advSearchTab)}>Cancel</button>
                     </div>
                 </div>
             </div>
 
-{/* ADD POPUP */}
+            {/* ADD POPUP */}
             <div className="Popup addPopup closeTab" ref={addTab}>
                 <div className="container">
                     <h3>Add</h3>
@@ -150,13 +167,17 @@ const Header = () => {
                         <input type="text" name="invoice_id" value={invoice_id} placeholder='Invoice id' onChange={(e) => handleDataChange(e)} />
                     </div>
                     <div className="popupButtonContainer">
-                        <button className='popupBtn' onClick={() => requestAddData(data)}>Add</button>
+                        <button className='popupBtn'
+                            onClick={() => {
+                                requestAddData(data)
+                                closeTab(addTab)
+                            }}>Add</button>
                         <button className='popupBtn' onClick={() => closeTab(addTab)}>Cancel</button>
                     </div>
                 </div>
             </div>
 
-{/* EDIT POPUP */}
+            {/* EDIT POPUP */}
             <div className="Popup editPopup closeTab" ref={editTab}>
                 <div className="container">
                     <h3>Edit</h3>
@@ -177,18 +198,26 @@ const Header = () => {
                 </div>
             </div>
 
-{/* DELETE POPUP */}
+            {/* DELETE POPUP */}
             <div className="Popup deletePopup closeTab" ref={deleteTab}>
                 <div className="container">
                     <h3>Delete Record ?</h3>
                     <p>Are you sure you want to delete the record[s]?</p>
                     <div className="popupButtonContainer">
-                        <button className='popupBtn' >Delete</button>
+                        <button className='popupBtn'
+                            onClick={() => {
+                                requestDeleteData(selected)
+                                closeTab(deleteTab)
+                            }}>Delete</button>
                         <button className='popupBtn' onClick={() => closeTab(deleteTab)}>Cancel</button>
                     </div>
                 </div>
             </div>
-            {displayData && <TableDataGrid rows={displayData} />}
+            {displayData && <TableDataGrid
+                rows={displayData}
+                selected={selected}
+                setSelected={setSelected}
+            />}
         </>
     )
 }
