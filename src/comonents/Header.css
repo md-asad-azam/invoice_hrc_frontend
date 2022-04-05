@@ -18,12 +18,13 @@
 .buttonsContainer{
     display: flex;
     position: fixed;
-    width: 99vw;
+    width: 100vw;
     top: 3vmax;
     align-items: center;
     justify-content: space-evenly;
     background-color: var(--background1);
     z-index: 10;
+    padding-bottom: 1vmax;
 }
 .firstThreeButtonsContainer,
 .lastThreeButtonsContainer{

@@ -1,18 +1,21 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Routes} from "react-router-dom"
-import Body from './comonents/Body';
-
+import TableDataGrid from './comonents/TableDataGrid';
 import Header from './comonents/Header';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function App() {
+
+
+  
+
   return (
     <>
-      <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Body />} />
-        </Routes>
-      </Router>
+
+      <Header />
+      {/* <Body /> */}
+      {/* <TableDataGrid rows={displayData} /> */}
+
     </>
   );
 }
