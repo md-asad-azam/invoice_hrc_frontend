@@ -19,11 +19,14 @@ export const requestGetData = async () => {
 export const requestAddData = async (reqData) => {
     try {
 
-        // const link = ``
-console.log(reqData);
-        // const { data } = await axios.post(link, reqData)
-return 0
-        // return data;
+        const res = await axios.get(`http://localhost:8080/HRC_internship/getMaxSlno`)
+        reqData.sl_no = res.data + 1
+
+        const link = `http://localhost:8080/HRC_internship/add`
+
+        const { data } = await axios.post(link, reqData)
+
+       console.log(data);
 
     } catch (error) {
         console.log(error);

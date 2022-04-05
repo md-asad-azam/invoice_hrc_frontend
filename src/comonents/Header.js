@@ -26,25 +26,26 @@ const Header = () => {
     const [displayData, setDisplayData] = useState([])
     const [totalCount, setTotalCount] = useState(0)
     const [data, setData] = useState({
-        ClearDate: today,
-        PostingDate: today,
-        DocumentCreateDate: today,
-        DueDate: today,
-        BaselineCreateDate: today,
-        BusinessCode: "",
-        CustomerNumber: "",
-        BusinessYear: "",
-        DocumentId: "",
-        InvoiceCurrency: "",
-        DocumentType: "",
-        Postingid: "",
-        TotalOpenAmount: "",
-        CustomerPaymentTerms: "",
-        Invoiceid: "",
+        clear_date: today,
+        posting_date: today,
+        document_create_date: today,
+        due_in_date: today,
+        baseline_create_date: today,
+        business_code: "",
+        cust_number: "",
+        buisness_year: "",
+        doc_id: "",
+        invoice_currency: "",
+        document_type: "",
+        posting_id: "",
+        total_open_amount: "",
+        cust_payment_terms: "",
+        invoice_id: "",
     })
-    const { ClearDate, PostingDate, DocumentCreateDate, DueDate, BaselineCreateDate,
-        BusinessCode, CustomerNumber, BusinessYear, DocumentId, InvoiceCurrency, DocumentType,
-        Postingid, TotalOpenAmount, CustomerPaymentTerms, Invoiceid } = data
+    const {
+        clear_date, posting_date, document_create_date, due_in_date, baseline_create_date,
+        business_code, cust_number, buisness_year, doc_id, invoice_currency, document_type,
+        posting_id, total_open_amount, cust_payment_terms, invoice_id, } = data
 
     const handleDataChange = (e) => {
         setData({ ...data, [e.target.name]: e.target.value })
@@ -54,11 +55,6 @@ const Header = () => {
         const data = await requestGetData()
         setDisplayData(data[0])
         setTotalCount(data[1])
-    }
-
-    const addData = async () => {
-        console.log("Adding data.....");
-        const d = await requestAddData(data)
     }
 
     useEffect(() => {
@@ -100,6 +96,7 @@ const Header = () => {
                 </div>
             </div>
 
+{/* ADVANCE SEARCH POPUP */}
             <div className="Popup advSearchPopup closeTab" ref={advSearchTab}>
                 <div className="container">
                     <h3>Advance Search</h3>
@@ -116,48 +113,50 @@ const Header = () => {
                 </div>
             </div>
 
+{/* ADD POPUP */}
             <div className="Popup addPopup closeTab" ref={addTab}>
                 <div className="container">
                     <h3>Add</h3>
                     <div className="popupInputContainer" >
-                        <input type="text" name="BusinessCode" value={BusinessCode} placeholder='Business Code' onChange={(e) => handleDataChange(e)} />
-                        <input type="text" name="CustomerNumber" value={CustomerNumber} placeholder='Customer Number' onChange={(e) => handleDataChange(e)} />
+                        <input type="text" name="business_code" value={business_code} placeholder='Business Code' onChange={(e) => handleDataChange(e)} />
+                        <input type="text" name="cust_number" value={cust_number} placeholder='Customer Number' onChange={(e) => handleDataChange(e)} />
                         <div className="inputPlaceholder">
                             <p>Clear Date</p>
-                            <input type="date" name="ClearDate" value={ClearDate} onChange={(e) => handleDataChange(e)} />
+                            <input type="date" name="clear_date" value={clear_date} onChange={(e) => handleDataChange(e)} />
                         </div>
-                        <input type="text" name="BusinessYear" value={BusinessYear} placeholder='Business Year' onChange={(e) => handleDataChange(e)} />
-                        <input type="text" name="DocumentId" value={DocumentId} placeholder='Document Id' onChange={(e) => handleDataChange(e)} />
+                        <input type="text" name="buisness_year" value={buisness_year} placeholder='Business Year' onChange={(e) => handleDataChange(e)} />
+                        <input type="text" name="doc_id" value={doc_id} placeholder='Document Id' onChange={(e) => handleDataChange(e)} />
                         <div className="inputPlaceholder">
                             <p>Posting Date</p>
-                            <input type="date" name="PostingDate" value={PostingDate} onChange={(e) => handleDataChange(e)} />
+                            <input type="date" name="posting_date" value={posting_date} onChange={(e) => handleDataChange(e)} />
                         </div>
                         <div className="inputPlaceholder">
                             <p>Document Create Date</p>
-                            <input type="date" name="DocumentCreateDate" value={DocumentCreateDate} onChange={(e) => handleDataChange(e)} />
+                            <input type="date" name="document_create_date" value={document_create_date} onChange={(e) => handleDataChange(e)} />
                         </div>
                         <div className="inputPlaceholder">
                             <p>Due Date</p>
-                            <input type="date" name="DueDate" value={DueDate} onChange={(e) => handleDataChange(e)} />
+                            <input type="date" name="due_in_date" value={due_in_date} onChange={(e) => handleDataChange(e)} />
                         </div>
-                        <input type="text" name="InvoiceCurrency" value={InvoiceCurrency} placeholder='Invoice Currency' onChange={(e) => handleDataChange(e)} />
-                        <input type="text" name="DocumentType" value={DocumentType} placeholder='Document Type' onChange={(e) => handleDataChange(e)} />
-                        <input type="text" name="Postingid" value={Postingid} placeholder='Posting id' onChange={(e) => handleDataChange(e)} />
-                        <input type="text" name="TotalOpenAmount" value={TotalOpenAmount} placeholder='Total Open Amount' onChange={(e) => handleDataChange(e)} />
+                        <input type="text" name="invoice_currency" value={invoice_currency} placeholder='Invoice Currency' onChange={(e) => handleDataChange(e)} />
+                        <input type="text" name="document_type" value={document_type} placeholder='Document Type' onChange={(e) => handleDataChange(e)} />
+                        <input type="text" name="posting_id" value={posting_id} placeholder='Posting id' onChange={(e) => handleDataChange(e)} />
+                        <input type="text" name="total_open_amount" value={total_open_amount} placeholder='Total Open Amount' onChange={(e) => handleDataChange(e)} />
                         <div className="inputPlaceholder">
                             <p>Baseline Create Date</p>
-                            <input type="date" name="BaselineCreateDate" value={BaselineCreateDate} onChange={(e) => handleDataChange(e)} />
+                            <input type="date" name="baseline_create_date" value={baseline_create_date} onChange={(e) => handleDataChange(e)} />
                         </div>
-                        <input type="text" name="CustomerPaymentTerms" value={CustomerPaymentTerms} placeholder='Customer Payment Terms' onChange={(e) => handleDataChange(e)} />
-                        <input type="text" name="Invoiceid" value={Invoiceid} placeholder='Invoice id' onChange={(e) => handleDataChange(e)} />
+                        <input type="text" name="cust_payment_terms" value={cust_payment_terms} placeholder='Customer Payment Terms' onChange={(e) => handleDataChange(e)} />
+                        <input type="text" name="invoice_id" value={invoice_id} placeholder='Invoice id' onChange={(e) => handleDataChange(e)} />
                     </div>
                     <div className="popupButtonContainer">
-                        <button className='popupBtn' onClick={() => addData()}>Add</button>
+                        <button className='popupBtn' onClick={() => requestAddData(data)}>Add</button>
                         <button className='popupBtn' onClick={() => closeTab(addTab)}>Cancel</button>
                     </div>
                 </div>
             </div>
 
+{/* EDIT POPUP */}
             <div className="Popup editPopup closeTab" ref={editTab}>
                 <div className="container">
                     <h3>Edit</h3>
@@ -178,6 +177,7 @@ const Header = () => {
                 </div>
             </div>
 
+{/* DELETE POPUP */}
             <div className="Popup deletePopup closeTab" ref={deleteTab}>
                 <div className="container">
                     <h3>Delete Record ?</h3>
