@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { getTodaysDate } from '../utility/utilFunc'
 import TableDataGrid from './TableDataGrid'
-import { requestAddData, requestAdvanceSearch, requestDeleteData, requestGetData, requestNormalSearch } from '../utility/requestServer'
+import CustomAlert from './CustomAlert'
+import { requestAddData, requestAdvanceSearch, requestDeleteData, requestGetData, requestNormalSearch, requestUpdateData } from '../utility/requestServer'
 import "./Header.css"
 
 const Header = () => {
@@ -22,7 +23,7 @@ const Header = () => {
 
     const today = getTodaysDate()
 
-    const [custNumber, setCustNumber] = useState("")
+    const [showAlert, setShowAlert] = useState({open: false, message: "", type: ""})
     const [displayData, setDisplayData] = useState([])
     const [totalCount, setTotalCount] = useState(0)
     const [selected, setSelected] = useState([])
@@ -61,13 +62,51 @@ const Header = () => {
     const handleNormalSearch = async (e) => {
         e.preventDefault()
         const res = await requestNormalSearch(data)
-        setDisplayData(res)
+        if(res.error){
+            setShowAlert({open: true, message: res.error, type: "error"})
+        }else{
+            setDisplayData(res)
+        }
     }
 
     const handleAdvanceSearch = async () => {
         const res = await requestAdvanceSearch(data)
         closeTab(advSearchTab)
-        setDisplayData(res)
+        if(res.error){
+            setShowAlert({open: true, message: res.error, type: "error"})
+        }else{
+            setDisplayData(res)
+        }
+    }
+
+    const handleAddData = async () => {
+        const res = await requestAddData(data)
+        closeTab(addTab)
+        if(res.error){
+            setShowAlert({open: true, message: res.error, type: "error"})
+        }else{
+            setShowAlert({open: true, message: res.success, type: "success"})
+        }
+    }
+
+    const handleEditData = async () => {
+        const res = await requestUpdateData(data, selected)
+        closeTab(editTab)
+        if(res.error){
+            setShowAlert({open: true, message: res.error, type: "error"})
+        }else{
+            setShowAlert({open: true, message: res.success, type: "success"})
+        }
+    }
+
+    const handleDeleteData = async () => {
+        const res = await requestDeleteData(selected)
+        closeTab(deleteTab)
+        if(res.error){
+            setShowAlert({open: true, message: res.error, type: "error"})
+        }else{
+            setShowAlert({open: true, message: res.success, type: "success"})
+        }
     }
 
     useEffect(() => {
@@ -78,6 +117,7 @@ const Header = () => {
 
     return (
         <>
+        {showAlert.open && <CustomAlert showAlert={showAlert} setShowAlert={setShowAlert} />}
             <div className="headerContainer">
                 <img
                     src="https://w7.pngwing.com/pngs/829/807/png-transparent-sydney-australian-broadcasting-corporation-american-broadcasting-company-abc-local-radio-internet-radio-sydney-television-text-logo.png"
@@ -168,10 +208,7 @@ const Header = () => {
                     </div>
                     <div className="popupButtonContainer">
                         <button className='popupBtn'
-                            onClick={() => {
-                                requestAddData(data)
-                                closeTab(addTab)
-                            }}>Add</button>
+                            onClick={() => handleAddData()}>Add</button>
                         <button className='popupBtn' onClick={() => closeTab(addTab)}>Cancel</button>
                     </div>
                 </div>
@@ -184,15 +221,15 @@ const Header = () => {
                     <div className="popupInputContainer" >
                         <div className="inputPlaceholder">
                             <p>Invoice Currency</p>
-                            <input type="text" name="InvoiceCurrency" />
+                            <input type="text" name="invoice_currency" value={invoice_currency} onChange={(e) => handleDataChange(e)} />
                         </div>
                         <div className="inputPlaceholder">
                             <p>Customer Payment Terms</p>
-                            <input type="text" name="CustomerPaymentTerms" />
+                            <input type="text" name="cust_payment_terms" value={cust_payment_terms} onChange={(e) => handleDataChange(e)} />
                         </div>
                     </div>
                     <div className="popupButtonContainer">
-                        <button className='popupBtn' >Edit</button>
+                        <button className='popupBtn' onClick={() => handleEditData()}>Edit</button>
                         <button className='popupBtn' onClick={() => closeTab(editTab)}>Cancel</button>
                     </div>
                 </div>
@@ -205,10 +242,7 @@ const Header = () => {
                     <p>Are you sure you want to delete the record[s]?</p>
                     <div className="popupButtonContainer">
                         <button className='popupBtn'
-                            onClick={() => {
-                                requestDeleteData(selected)
-                                closeTab(deleteTab)
-                            }}>Delete</button>
+                            onClick={() => handleDeleteData()}>Delete</button>
                         <button className='popupBtn' onClick={() => closeTab(deleteTab)}>Cancel</button>
                     </div>
                 </div>
