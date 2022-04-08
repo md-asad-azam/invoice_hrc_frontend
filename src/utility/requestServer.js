@@ -14,7 +14,7 @@ export const requestGetData = async () => {
 
     } catch (error) {
         console.log(error);
-        return { error: "Something Went Wrong" }
+        return { error: "Something Went Wrong!!!" }
     }
 }
 
@@ -23,7 +23,7 @@ export const requestAddData = async (reqData) => {
 
     for (const item in reqData) {
         if (reqData[item] === "")
-            return { error: `Missing data for #${item}, Please fill up all fields` }
+            return { error: `Missing data for #${item}, Please fill up all fields.` }
     }
 
     try {
@@ -36,15 +36,20 @@ export const requestAddData = async (reqData) => {
 
     } catch (error) {
         console.log(error);
-        return { error: "Something Went Wrong" }
+        return { error: "Something Went Wrong!!!" }
     }
 }
 
 // Update Data
 export const requestUpdateData = async (reqData, slno) => {
 
+    const {cust_payment_terms, invoice_currency} = reqData
+    if(cust_payment_terms === "" || invoice_currency === ""){
+        return { error: "Missing Data, Please fill up all fields." }
+    }
+
     if (slno.length === 0) {
-        return { error: "No Rows are selected to update" }
+        return { error: "No Rows are selected to update!!!" }
     }
 
     try {
@@ -62,7 +67,7 @@ export const requestUpdateData = async (reqData, slno) => {
 
     } catch (error) {
         console.log(error);
-        return { error: "Something Went Wrong" }
+        return { error: "Something Went Wrong!!!" }
     }
 
 }
@@ -71,7 +76,7 @@ export const requestUpdateData = async (reqData, slno) => {
 export const requestDeleteData = async (slno) => {
 
     if (slno.length === 0) {
-        return { error: "No Rows are selected to delete" }
+        return { error: "No Rows are selected to delete!!!" }
     }
 
     try {
@@ -85,7 +90,7 @@ export const requestDeleteData = async (slno) => {
 
     } catch (error) {
         console.log(error);
-        return { error: "Something Went Wrong" }
+        return { error: "Something Went Wrong!!!" }
     }
 }
 
@@ -101,7 +106,7 @@ export const requestAdvanceSearch = async (reqData) => {
 
     for (const item in reqBody) {
         if (reqData[item] === "")
-            return { error: `Missing data for #${item}, Please fill up all fields` }
+            return { error: `Missing data for #${item}, Please fill up all fields.` }
     }
 
     try {
@@ -110,13 +115,13 @@ export const requestAdvanceSearch = async (reqData) => {
         const { data } = await axios.get(link)
         
         if(data.length === 0)
-            return { error: "No Match found for this Search" }
+            return { error: "No Match found for this Search." }
             
         return data
 
     } catch (error) {
         console.log(error);
-        return { error: "Something Went Wrong" }
+        return { error: "Something Went Wrong!!!" }
     }
 }
 
@@ -131,12 +136,12 @@ export const requestNormalSearch = async (reqData) => {
         const { data } = await axios.get(link)
 
         if(data.length === 0)
-            return { error: "No Match found for this Search" }
+            return { error: "No Match found for this Search." }
 
         return data
 
     } catch (error) {
         console.log(error);
-        return { error: "Something Went Wrong" }
+        return { error: "Something Went Wrong!!!" }
     }
 }

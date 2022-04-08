@@ -6,6 +6,11 @@
   outline: none;
 }
 
+#root{
+  min-height: 100vh;
+  background: var(--background1);
+}
+
 :root {
   --background1: #2D4351;
   --background2: #293C4A;

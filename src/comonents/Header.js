@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { getTodaysDate } from '../utility/utilFunc'
 import TableDataGrid from './TableDataGrid'
 import CustomAlert from './CustomAlert'
+import SearchIcon from '@mui/icons-material/Search';
 import { requestAddData, requestAdvanceSearch, requestDeleteData, requestGetData, requestNormalSearch, requestUpdateData } from '../utility/requestServer'
 import "./Header.css"
 
@@ -23,7 +24,7 @@ const Header = () => {
 
     const today = getTodaysDate()
 
-    const [showAlert, setShowAlert] = useState({open: false, message: "", type: ""})
+    const [showAlert, setShowAlert] = useState({ open: false, message: "", type: "" })
     const [displayData, setDisplayData] = useState([])
     const [totalCount, setTotalCount] = useState(0)
     const [selected, setSelected] = useState([])
@@ -62,9 +63,9 @@ const Header = () => {
     const handleNormalSearch = async (e) => {
         e.preventDefault()
         const res = await requestNormalSearch(data)
-        if(res.error){
-            setShowAlert({open: true, message: res.error, type: "error"})
-        }else{
+        if (res.error) {
+            setShowAlert({ open: true, message: res.error, type: "error" })
+        } else {
             setDisplayData(res)
         }
     }
@@ -72,9 +73,9 @@ const Header = () => {
     const handleAdvanceSearch = async () => {
         const res = await requestAdvanceSearch(data)
         closeTab(advSearchTab)
-        if(res.error){
-            setShowAlert({open: true, message: res.error, type: "error"})
-        }else{
+        if (res.error) {
+            setShowAlert({ open: true, message: res.error, type: "error" })
+        } else {
             setDisplayData(res)
         }
     }
@@ -82,30 +83,30 @@ const Header = () => {
     const handleAddData = async () => {
         const res = await requestAddData(data)
         closeTab(addTab)
-        if(res.error){
-            setShowAlert({open: true, message: res.error, type: "error"})
-        }else{
-            setShowAlert({open: true, message: res.success, type: "success"})
+        if (res.error) {
+            setShowAlert({ open: true, message: res.error, type: "error" })
+        } else {
+            setShowAlert({ open: true, message: res.success, type: "success" })
         }
     }
 
     const handleEditData = async () => {
         const res = await requestUpdateData(data, selected)
         closeTab(editTab)
-        if(res.error){
-            setShowAlert({open: true, message: res.error, type: "error"})
-        }else{
-            setShowAlert({open: true, message: res.success, type: "success"})
+        if (res.error) {
+            setShowAlert({ open: true, message: res.error, type: "error" })
+        } else {
+            setShowAlert({ open: true, message: res.success, type: "success" })
         }
     }
 
     const handleDeleteData = async () => {
         const res = await requestDeleteData(selected)
         closeTab(deleteTab)
-        if(res.error){
-            setShowAlert({open: true, message: res.error, type: "error"})
-        }else{
-            setShowAlert({open: true, message: res.success, type: "success"})
+        if (res.error) {
+            setShowAlert({ open: true, message: res.error, type: "error" })
+        } else {
+            setShowAlert({ open: true, message: res.success, type: "success" })
         }
     }
 
@@ -117,39 +118,42 @@ const Header = () => {
 
     return (
         <>
-        {showAlert.open && <CustomAlert showAlert={showAlert} setShowAlert={setShowAlert} />}
-            <div className="headerContainer">
-                <img
-                    src="https://w7.pngwing.com/pngs/829/807/png-transparent-sydney-australian-broadcasting-corporation-american-broadcasting-company-abc-local-radio-internet-radio-sydney-television-text-logo.png"
-                    id='first'
-                    alt="logo1"
-                />
-                <img
-                    src="https://cdn-resources.highradius.com/resources/wp-content/uploads/2020/04/highradius-logo-3.png"
-                    id='second'
-                    alt="logo2"
-                />
-            </div>
-            <div className="buttonsContainer">
-                <div className="firstThreeButtonsContainer">
-                    <button className="btn">PREDICT</button>
-                    <button className="btn">ANALYTICS VIEW</button>
-                    <button className="btn" onClick={() => openTab(advSearchTab)}>ADVANCE SEARCH</button>
-                </div>
-                <form onSubmit={(e) => handleNormalSearch(e)}>
-                    <input
-                        type="text"
-                        name="cust_number"
-                        id="customerId"
-                        placeholder='Search Customer Id'
-                        value={cust_number}
-                        onChange={(e) => handleDataChange(e)}
+            {showAlert.open && <CustomAlert showAlert={showAlert} setShowAlert={setShowAlert} />}
+            <div className="topHead">
+                <div className="headerContainer">
+                    <img
+                        src="/abcProduct.png"
+                        id='first'
+                        alt="logo1"
                     />
-                </form>
-                <div className="lastThreeButtonsContainer">
-                    <button className="btn" onClick={() => openTab(addTab)}>ADD</button>
-                    <button className="btn" onClick={() => openTab(editTab)}>EDIT</button>
-                    <button className="btn" onClick={() => openTab(deleteTab)}>DELETE</button>
+                    <img
+                        src="/logohighradiuscolor.png"
+                        id='second'
+                        alt="logo2"
+                    />
+                </div>
+                <div className="buttonsContainer">
+                    <div className="firstThreeButtonsContainer">
+                        <button className="btn">PREDICT</button>
+                        <button className="btn">ANALYTICS VIEW</button>
+                        <button className="btn" onClick={() => openTab(advSearchTab)}>ADVANCE SEARCH</button>
+                    </div>
+                    <form id='customerIdForm' onSubmit={(e) => handleNormalSearch(e)}>
+                        <input
+                            type="text"
+                            name="cust_number"
+                            id="customerId"
+                            placeholder='Search Customer Id'
+                            value={cust_number}
+                            onChange={(e) => handleDataChange(e)}
+                        />
+                        <button type="submit"><SearchIcon className='searchIconSvg' /></button>
+                    </form>
+                    <div className="lastThreeButtonsContainer">
+                        <button className="btn" onClick={() => openTab(addTab)}>ADD</button>
+                        <button className="btn" onClick={() => openTab(editTab)}>EDIT</button>
+                        <button className="btn" onClick={() => openTab(deleteTab)}>DELETE</button>
+                    </div>
                 </div>
             </div>
 

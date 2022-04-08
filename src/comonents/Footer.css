@@ -1,0 +1,19 @@
+.footerContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100vw;
+    background-color: var(--background1);
+    padding-top: 2vmax;
+    transform: translateY(-1.3vmax);
+}
+
+.footerContainer > a{
+    color: rgb(74, 74, 255);
+    font: 600 1.2vmax var(--my-font);
+}
+
+.footerContainer > p {
+    color: white;
+    font: 600 1.2vmax var(--my-font);
+}

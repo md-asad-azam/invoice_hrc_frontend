@@ -21,10 +21,15 @@ export default function CustomAlert({ showAlert, setShowAlert }) {
         <Stack spacing={2} sx={{ width: '100%' }}>
             <Snackbar
                 open={true}
-                autoHideDuration={5000}
+                autoHideDuration={3500}
                 onClose={handleClose}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
             >
-                <Alert onClose={handleClose} severity={showAlert.type} sx={{ width: '100%' }}>
+                <Alert
+                    onClose={handleClose}
+                    severity={showAlert.type}
+                    sx={{ width: '100%' }}
+                >
                     {showAlert.message}
                 </Alert>
             </Snackbar>
