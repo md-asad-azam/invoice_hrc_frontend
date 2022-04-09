@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { getTodaysDate } from '../utility/utilFunc'
-import TableDataGrid from './TableDataGrid'
+import TableDataGrid from './Table/TableDataGrid'
 import CustomAlert from './CustomAlert'
 import SearchIcon from '@mui/icons-material/Search';
 import { requestAddData, requestAdvanceSearch, requestDeleteData, requestGetData, requestNormalSearch, requestUpdateData } from '../utility/requestServer'
 import "./Header.css"
+import Analytics from './Analytics';
 
 const Header = () => {
 
@@ -28,6 +29,10 @@ const Header = () => {
     const [displayData, setDisplayData] = useState([])
     const [totalCount, setTotalCount] = useState(0)
     const [selected, setSelected] = useState([])
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [customerId, setCustomerId] = useState("")
+    const [page, setPage] = useState(0);
+
     const [data, setData] = useState({
         clear_date: today,
         posting_date: today,
@@ -55,23 +60,34 @@ const Header = () => {
     }
 
     const getData = async () => {
-        const res = await requestGetData()
-        setDisplayData(res[0])
-        setTotalCount(res[1])
+        let res
+        if (customerId !== "") {
+            res = await requestNormalSearch(customerId, page, rowsPerPage)
+        } else {
+            res = await requestGetData(page, rowsPerPage)
+        }
+
+        if (res.error) {
+            setShowAlert({ open: true, message: res.error, type: "error" })
+        } else {
+            setDisplayData(res[0])
+            setTotalCount(res[1])
+        }
     }
 
     const handleNormalSearch = async (e) => {
         e.preventDefault()
-        const res = await requestNormalSearch(data)
+        const res = await requestNormalSearch(customerId, page, rowsPerPage)
         if (res.error) {
             setShowAlert({ open: true, message: res.error, type: "error" })
         } else {
-            setDisplayData(res)
+            setDisplayData(res[0])
+            setTotalCount(res[1])
         }
     }
 
     const handleAdvanceSearch = async () => {
-        const res = await requestAdvanceSearch(data)
+        const res = await requestAdvanceSearch(data, page, rowsPerPage)
         closeTab(advSearchTab)
         if (res.error) {
             setShowAlert({ open: true, message: res.error, type: "error" })
@@ -114,7 +130,7 @@ const Header = () => {
 
         getData()
 
-    }, [])
+    }, [page, rowsPerPage])
 
     return (
         <>
@@ -144,8 +160,11 @@ const Header = () => {
                             name="cust_number"
                             id="customerId"
                             placeholder='Search Customer Id'
-                            value={cust_number}
-                            onChange={(e) => handleDataChange(e)}
+                            value={customerId}
+                            onChange={(e) => {
+                                setCustomerId(e.target.value)
+                                setPage(0)
+                            }}
                         />
                         <button type="submit"><SearchIcon className='searchIconSvg' /></button>
                     </form>
@@ -252,10 +271,18 @@ const Header = () => {
                 </div>
             </div>
             {displayData && <TableDataGrid
-                rows={displayData}
+                displayData={displayData}
+                totalCount={totalCount}
                 selected={selected}
                 setSelected={setSelected}
+                setDisplayData={setDisplayData}
+                page={page}
+                setPage={setPage}
+                rowsPerPage={rowsPerPage}
+                setRowsPerPage={setRowsPerPage}
             />}
+            {/* {displayData && <Analytics data={displayData}/>} */}
+
         </>
     )
 }
