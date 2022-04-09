@@ -8,18 +8,17 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
-import "./TableDataGrid.css"
+import "../../css/TableDataGrid.css"
 import EnhancedTableHead from './EnhancedTableHead';
-import { requestGetData } from '../../utility/requestServer';
 
 
 const TableDataGrid = (props) => {
 
   const {
     totalCount,
+    displayData,
     page, setPage,
     selected, setSelected,
-    displayData, setDisplayData,
     rowsPerPage, setRowsPerPage,
   } = props
 console.log(displayData);

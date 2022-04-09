@@ -89,6 +89,11 @@
     justify-content: center;
     position: fixed !important;
     background: rgba(0, 0, 0, 0.5);
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    z-index: 100;
 }
 .Popup > div{
     display: flex;
@@ -172,21 +177,6 @@
 }
 
 /* Utilitu classes */
-.openTab{
-    height: 100vh;
-    width: 100vw;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 100;
-    transition: all 0.1s;
-}
-.closeTab{
-    display: hidden;
-    height: 0;
-    width: 0;
-    overflow: hidden;
-}
 .inputPlaceholder{
     position: relative;
     height: 100%;
