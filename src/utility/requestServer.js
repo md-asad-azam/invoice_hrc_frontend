@@ -1,12 +1,16 @@
 import axios from "axios"
 
+const baseUrl = "http://localhost:8080/HRC_internship"
+
 // Get Data
 export const requestGetData = async (page = 0, rowsPerPage = 10) => {
-    const link = `http://localhost:8080/HRC_internship/fetch?page=${page}&resultPerPage=${rowsPerPage}`
+
+    const link = baseUrl + `/fetch?page=${page}&resultPerPage=${rowsPerPage}`
+    const countLink = baseUrl + `/count`
     try {
 
         const { data } = await axios.get(link)
-        const result = await axios.get(`http://localhost:8080/HRC_internship/count`)
+        const result = await axios.get(countLink)
         const count = result.data
         return [data, count]
 
@@ -26,7 +30,7 @@ export const requestAddData = async (reqData) => {
 
     try {
 
-        const link = `http://localhost:8080/HRC_internship/add`
+        const link = baseUrl + `/add`
         const { data } = await axios.post(link, reqData)
         return data
 
@@ -55,7 +59,7 @@ export const requestUpdateData = async (reqData, slno) => {
             sl_no: slno
         }
 
-        const link = `http://localhost:8080/HRC_internship/update`
+        const link = baseUrl + `/update`
         const { data } = await axios.post(link, reqBody)
         return data
 
@@ -76,7 +80,7 @@ export const requestDeleteData = async (slno) => {
     try {
 
         const reqData = { sl_no: slno }
-        const link = `http://localhost:8080/HRC_internship/delete`
+        const link = baseUrl + `/delete`
         const { data } = await axios.post(link, reqData)
         return data
 
@@ -92,14 +96,14 @@ export const requestNormalSearch = async (reqData, page = 0, rowsPerPage = 10) =
 
     try {
 
-        const link = `http://localhost:8080/HRC_internship/fetch?page=${page}&resultPerPage=${rowsPerPage}&custNumber=${reqData}`
-        const countLink = `http://localhost:8080/HRC_internship/count?custNumber=${reqData}`
+        const link = baseUrl + `/fetch?page=${page}&resultPerPage=${rowsPerPage}&custNumber=${reqData}`
+        const countLink = baseUrl + `/count?custNumber=${reqData}`
 
         const { data } = await axios.get(link)  //Getting data
         const result = await axios.get(countLink)   //Getting total count or matched result
         const count = result.data
 
-        if (data.length === 0){
+        if (data.length === 0) {
             return { error: "No Match found for this Search." }
         }
 
@@ -127,7 +131,7 @@ export const requestAdvanceSearch = async (reqData, page = 0, rowsPerPage = 10) 
 
     try {
 
-        const link = `http://localhost:8080/HRC_internship/fetch?page=${page}&resultPerPage=${rowsPerPage}&custNumber=${reqBody.cust_number}&advSearch=${true}&businessYear=${reqBody.buisness_year}&invoiceId=${reqBody.invoice_id}&docId=${reqBody.doc_id}`
+        const link = baseUrl + `/fetch?page=${page}&resultPerPage=${rowsPerPage}&custNumber=${reqBody.cust_number}&advSearch=${true}&businessYear=${reqBody.buisness_year}&invoiceId=${reqBody.invoice_id}&docId=${reqBody.doc_id}`
         const { data } = await axios.get(link)
 
         if (data.length === 0)
@@ -142,15 +146,17 @@ export const requestAdvanceSearch = async (reqData, page = 0, rowsPerPage = 10) 
 }
 
 // Analytical Data
-export const requestAnalytialData = async () => {
-    // const link = `http://localhost:8080/HRC_internship/fetch?page=${page}&resultPerPage=${rowsPerPage}`
-    // try {
+export const requestAnalytialData = async (reqData) => {
 
-    //     const { data } = await axios.get(link)
-    //     return data
+    const link = baseUrl + `/getAnalytics`
 
-    // } catch (error) {
-    //     console.log(error);
-    //     return { error: "Something Went Wrong!!!" }
-    // }
+    try {
+
+        const { data } = await axios.post(link, reqData)
+        return data
+
+    } catch (error) {
+        console.log(error);
+        return { error: "Something Went Wrong!!!" }
+    }
 }

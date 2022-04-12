@@ -21,7 +21,7 @@ const TableDataGrid = (props) => {
     selected, setSelected,
     rowsPerPage, setRowsPerPage,
   } = props
-console.log(displayData);
+
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('');
 

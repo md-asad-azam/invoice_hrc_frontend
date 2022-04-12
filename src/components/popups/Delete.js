@@ -11,7 +11,7 @@ const Delete = (props) => {
 
     const handleDeleteData = async () => {
         const res = await requestDeleteData(selected)
-        setOpenDeletePopup(true)
+        setOpenDeletePopup(false)
         if (res.error) {
             setShowAlert({ open: true, message: res.error, type: "error" })
         } else {

@@ -6,6 +6,9 @@
 td, th{
     color: white !important;
 }
+th{
+    padding: 0.6vmax 1.4vmax !important;
+}
 td{
     height: 1vmax !important;
     padding: 0 !important;

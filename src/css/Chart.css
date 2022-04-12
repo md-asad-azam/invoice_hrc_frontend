@@ -1,0 +1,57 @@
+.analyticsContainer {
+    background-color: white;
+    width: 100vw;
+    /* height: 95vh; */
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin: 0 auto;
+    z-index: 1000;
+}
+.analyticsContainer h2{
+    font: 600 2vmax cursive;
+    width: 30vw;
+    margin: 0 auto 2vmax auto;
+    padding: 0.15vmax;
+    border-bottom: 0.15vmax solid black;
+}
+.closeButtonContainer{
+    height: 3vmax;
+    width: 3vmax;
+    display: grid;
+    place-content: center;
+    padding: 1vmax;
+    border-radius: 50%;
+    box-shadow: 0 0 0.4vmax 0.1vmax rgba(71, 71, 71, 0.5);
+    margin-top: 1vmax;
+    cursor: pointer;
+}
+.closeButtonContainer > svg{
+    height: 2.8vmax;
+    width: 2.8vmax;
+}
+
+.barContainer{
+    height: 90vh;
+    width: 80vw;
+    margin: 2vmax 0;
+    text-align: center;
+}
+.barContainer > canvas{
+    height: 80vh !important;
+    width: 80vw !important;
+}
+.pieContainer{
+    height: 90vh;
+    width: 75vh;
+    margin: 3vmax 0;
+    text-align: center;
+}
+.pieContainer > canvas{
+    height: 75vh !important;
+    width: 75vh !important;
+}

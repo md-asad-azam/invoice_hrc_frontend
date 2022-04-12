@@ -2,7 +2,7 @@ import "../css/Header.css"
 import Search from './Search';
 import Add from './popups/Add';
 import Edit from './popups/Edit';
-import Analytics from './Analytics'
+import Analytics from './popups/Analytics'
 import Delete from './popups/Delete';
 import CustomAlert from './CustomAlert'
 import TableDataGrid from './Table/TableDataGrid'
@@ -28,6 +28,7 @@ const Header = () => {
     const [openAddPopup, setOpenAddPopup] = useState(false)
     const [openEditPopup, setOpenEditPopup] = useState(false)
     const [openDeletePopup, setOpenDeletePopup] = useState(false)
+    const [openAnalyticsPopup, setOpenAnalyticsPopup] = useState(false)
 
     const [data, setData] = useState({
         clear_date: today,
@@ -80,7 +81,7 @@ const Header = () => {
                 <div className="buttonsContainer">
                     <div className="firstThreeButtonsContainer">
                         <button className="btn">PREDICT</button>
-                        <button className="btn">ANALYTICS VIEW</button>
+                        <button className="btn" onClick={() => setOpenAnalyticsPopup(true)}>ANALYTICS VIEW</button>
                         <button className="btn" onClick={() => setOpenAdvSearch(true)}>ADVANCE SEARCH</button>
                     </div>
                     <Search
@@ -143,7 +144,14 @@ const Header = () => {
                 rowsPerPage={rowsPerPage}
                 setRowsPerPage={setRowsPerPage}
             />}
-            {/* {displayData && <Analytics data={displayData}/>} */}
+            {openAnalyticsPopup && <Analytics
+                data={data}
+                today={today}
+                setData={setData}
+                selected={selected}
+                setShowAlert={setShowAlert}
+                setOpenAnalyticsPopup={setOpenAnalyticsPopup}
+            />}
 
         </>
     )

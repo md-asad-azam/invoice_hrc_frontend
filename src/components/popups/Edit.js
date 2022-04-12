@@ -3,7 +3,7 @@ import { requestUpdateData } from '../../utility/requestServer'
 
 const Edit = (props) => {
 
-    const { 
+    const {
         selected,
         setShowAlert,
         data, setData,
@@ -30,14 +30,8 @@ const Edit = (props) => {
                 <div className="container">
                     <h3>Edit</h3>
                     <div className="popupInputContainer" >
-                        <div className="inputPlaceholder">
-                            <p>Invoice Currency</p>
-                            <input type="text" name="invoice_currency" value={data.invoice_currency} onChange={(e) => handleDataChange(e)} />
-                        </div>
-                        <div className="inputPlaceholder">
-                            <p>Customer Payment Terms</p>
-                            <input type="text" name="cust_payment_terms" value={data.cust_payment_terms} onChange={(e) => handleDataChange(e)} />
-                        </div>
+                        <input type="text" placeholder='Invoice Currency' name="invoice_currency" value={data.invoice_currency} onChange={(e) => handleDataChange(e)} />
+                        <input type="text" placeholder='Customer Payment Terms' name="cust_payment_terms" value={data.cust_payment_terms} onChange={(e) => handleDataChange(e)} />
                     </div>
                     <div className="popupButtonContainer">
                         <button className='popupBtn' onClick={() => handleEditData()}>Edit</button>

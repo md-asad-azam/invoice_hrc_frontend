@@ -4,6 +4,7 @@
   margin: 0;
   padding: 0;
   outline: none;
+  font-size: 1vmax;
 }
 
 #root{
@@ -19,6 +20,17 @@
   --my-font: 'Montserrat', sans-serif;
 }
 
+input{
+  font: 400 1vmax var(--my-font);
+  outline: none;
+  border: none;
+  padding-inline-start: 0;
+  letter-spacing: 0 !important;
+  word-spacing: 0 !important;
+}
+input::placeholder{
+  font: 400 1.15vmax var(--my-font);
+}
 input:focus::placeholder{ /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: var(--light-blue);
   opacity: 1; /* Firefox */
@@ -29,3 +41,13 @@ input:focus:-ms-input-placeholder:focus { /* Internet Explorer 10-11 */
 input:focus::-ms-input-placeholder:focus { /* Microsoft Edge */
   color: var(--light-blue);
 }
+
+input[type="checkbox"]{
+  height: 1vmax !important;
+  width: 1max !important;
+}
+
+/* path{
+  height: 1em !important;
+  width: 1em !important;
+} */

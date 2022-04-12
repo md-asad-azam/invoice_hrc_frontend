@@ -11,7 +11,7 @@
     display: flex;
     justify-content: center;
     position: relative;
-    height: 10vh;
+    height: 12vh;
 }
 .headerContainer > #first{
     position: absolute;
@@ -26,6 +26,8 @@
 
 .buttonsContainer{
     display: flex;
+    width: 100vw;
+    height: 5vh;
     align-items: center;
     justify-content: space-evenly;
     padding-bottom: 1vmax;
@@ -36,21 +38,23 @@
     align-items: center;
     justify-content: center;
     margin: 1vmax 0;
+    /* width: 40%; */
 }
 .firstThreeButtonsContainer > .btn:first-child{
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10vmax;
+    border-bottom-left-radius: 10vmax;
 }
 .firstThreeButtonsContainer > .btn:last-child{
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10vmax;
+    border-bottom-right-radius: 10vmax;
 }
 .btn{
     color: white;
     padding: 0.5vmax 2vmax;
-    border: 1px solid var(--light-blue);
+    border: 0.1vmax solid var(--light-blue);
     background: transparent;
-    transition: all 0.5s;
+    font: 500 1.2vmax var(--my-font);
+    transition: background-color 0.5s, border-color 0.5s;
 }
 .btn:hover{
     background-color: var(--light-blue);
@@ -58,24 +62,34 @@
 }
 #customerIdForm{
     position: relative;
+    height: 3vmax;
+    display: flex;
 }
 #customerIdForm > #customerId{
     padding: 1vmax;
-    border-radius: 10px;
+    border-radius: 1.2vmax;
     border: none;
     outline: none;
     padding-right: 3vmax;
 }
 #customerIdForm > button{
-    background: transparent;
-    outline: none;
-    border: none;
-}
-#customerIdForm > button > .searchIconSvg{
     position: absolute;
     right: 0.8vmax;
     top: 50%;
     transform: translateY(-50%);
+    background: transparent;
+    outline: none;
+    border: none;
+    height: 2vmax;
+    width: 2vmax;
+}
+
+#customerIdForm > button > .searchIconSvg{
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 2vmax;
+    width: 2vmax;
     color: var(--light-blue);
     cursor: pointer;
 }
@@ -102,13 +116,13 @@
     align-items: center;
     background: var(--background1);
     border-radius: 5vmax;
-    border: 2px solid white;
+    border: 0.2vmax solid white;
 }
 .Popup > div > h3{
     color: white;
     font: 400 3vmax var(--my-font);
     padding: 0 2vmax;
-    border-bottom: 1px solid white;
+    border-bottom: 0.1vmax solid white;
 }
 .Popup > div > .popupInputContainer{
     display: grid;
@@ -116,6 +130,15 @@
 }
 .Popup > div > .popupInputContainer input{
     padding: 0.5vmax;
+    font-size: 1vmax;
+    height: 6vh;
+    width: 15vw;
+}
+.Popup > div > .popupInputContainer input[type="date"]{
+    padding-bottom: 0;
+}
+.Popup > div > .popupInputContainer input::placeholder{
+    font-size: 1vmax;
 }
 .Popup > div > .popupButtonContainer{
     display: flex;
@@ -129,7 +152,7 @@
     padding: 1vmax;
     color: white;
     font: 300 1.5vmax var(--my-font);
-    border: 1px solid white;
+    border: 0.1vmax solid white;
     border-radius: 1vmax;
     background: transparent;
     cursor: pointer;
@@ -176,28 +199,72 @@
     font: 400 1.5vmax var(--my-font);
 }
 
+.analyticsPopup > div{
+    height: 80vh;
+    width: 40vw;
+    position: relative;
+}
+
+.analyticsPopup > div > .popupInputContainer{
+    width: 70%;
+    grid-gap: 0;
+    grid-row-gap: 2vmax;
+    grid-template-columns: 50% 50%;
+}
+.analyticsPopup > div > .popupInputContainer> .inner{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    font: 300 1.1vmax var(--my-font);
+}
+.analyticsPopup > div > .popupInputContainer> .inner > p{
+    margin-bottom: 0.5vmax;
+}
+.analyticsPopup > div > .popupInputContainer> .inner > .contain{
+    position: relative;
+    height: 3vmax;
+    margin-bottom: 1vmax;
+}
+.analyticsPopup > div > .popupInputContainer> .inner > .contain > p{
+    color: black;
+    top: 0;
+    left: 0.5vmax;
+    position: absolute;
+}
+.analyticsPopup > div > .popupInputContainer> .inner > .contain > input{
+    height: 5vh;
+    width: 10vw;
+    padding-top: 1vmax;
+    padding-bottom: 0.2vmax;
+}
+#invoice_input{
+    width: 10vw;
+}
+#invoice_input::placeholder{
+    font: 400 1vmax var(--my-font);
+}
+
+
 /* Utilitu classes */
 .inputPlaceholder{
     position: relative;
-    height: 100%;
-    width: 100%;
+    height: 6vh;
+    width: 15vw;
     overflow: hidden;
-    border-bottom: 2.5px solid transparent;
-    transition: all 0.5s;
+    border-bottom: 0.25vmax solid transparent;
 }
 .inputPlaceholder > p{
     position: absolute;
-    top: 2px;
+    top: 0;
     padding-left: 0.6vmax;
     font-size: 1vmax;
     font-family: sans-serif;
     color: rgb(117,117,117);
 }
 .inputPlaceholder > input{
-    height: 100%;
-    width: 90%;
+    height: 5vh;
+    width: 15vw;
 }
-/* .inputPlaceholder:{
-    border-bottom: 2.5px solid var(--light-blue);
-    color: var(--light-blue);
-} */
