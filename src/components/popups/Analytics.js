@@ -20,7 +20,7 @@ const Analytics = (props) => {
         due_date_to: today,
         baseline_create_date_from: today,
         baseline_create_date_to: today,
-        invoice_currency: "USD"
+        invoice_currency: "'USD'"
     })
 
     const handleDataChange = (e) => {
@@ -83,7 +83,12 @@ const Analytics = (props) => {
                         </div>
                         <div className="inner">
                             <p>Invoice Currency</p>
-                            <input type="text" value={data.invoice_currency} id='invoice_input' name="invoice_currency" placeholder='Invoice Currency' onChange={(e) => handleDataChange(e)} />
+                            {/* <input type="text" value={data.invoice_currency} id='invoice_input' name="invoice_currency" placeholder='Invoice Currency' onChange={(e) => handleDataChange(e)} /> */}
+                            <select name="invoice_currency" id="invoice_input" onChange={(e) => handleDataChange(e)}>
+                                <option value="'USD'">USD</option>
+                                <option value="'CAD'">CAD</option>
+                                <option value="'USD', 'CAD'">Both</option>
+                            </select>
                         </div>
                     </div>
                     <div className="popupButtonContainer">

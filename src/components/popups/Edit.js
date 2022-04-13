@@ -5,6 +5,7 @@ const Edit = (props) => {
 
     const {
         selected,
+        setChange,
         setShowAlert,
         data, setData,
         setOpenEditPopup,
@@ -16,11 +17,12 @@ const Edit = (props) => {
 
     const handleEditData = async () => {
         const res = await requestUpdateData(data, selected)
-        setOpenEditPopup(true)
+        setOpenEditPopup(false)
         if (res.error) {
             setShowAlert({ open: true, message: res.error, type: "error" })
         } else {
             setShowAlert({ open: true, message: res.success, type: "success" })
+            setChange(`call useEffect${Math.random()}`)
         }
     }
 

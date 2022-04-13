@@ -23,7 +23,7 @@ const TableDataGrid = (props) => {
   } = props
 
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('');
+  const [orderBy, setOrderBy] = React.useState('sl_no');
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -119,8 +119,10 @@ const TableDataGrid = (props) => {
                           <TableCell id={labelId} align="center">{row.sl_no}</TableCell>
                           <TableCell align="center">{row.business_code}</TableCell>
                           <TableCell align="center">{row.cust_number}</TableCell>
-                          <TableCell align="center">{row.clear_date}</TableCell>
-                          <TableCell align="center">{row.buisness_year}</TableCell>
+                          <TableCell align="center">{
+                            row.clear_date === "0000-00-00" ? "-" : row.clear_date
+                          }</TableCell>
+                          <TableCell align="center">{row.buisness_year.substring(0, 4)}</TableCell>
                           <TableCell align="center">{row.doc_id}</TableCell>
                           <TableCell align="center">{row.posting_date}</TableCell>
                           <TableCell align="center">{row.document_create_date}</TableCell>
@@ -132,10 +134,13 @@ const TableDataGrid = (props) => {
                           <TableCell align="center">{row.baseline_create_date}</TableCell>
                           <TableCell align="center">{row.cust_payment_terms}</TableCell>
                           <TableCell align="center">{row.invoice_id}</TableCell>
+                          <TableCell align="center">{
+                            row.aging_bucket ? row.aging_bucket : "-"
+                          }</TableCell>
                         </TableRow>
                       );
                     })}
-                    
+
                 </TableBody>
               </Table>
             </TableContainer>

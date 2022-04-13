@@ -5,6 +5,7 @@ const Delete = (props) => {
 
     const { 
         selected,
+        setChange,
         setShowAlert,
         setOpenDeletePopup,
     } = props
@@ -16,6 +17,7 @@ const Delete = (props) => {
             setShowAlert({ open: true, message: res.error, type: "error" })
         } else {
             setShowAlert({ open: true, message: res.success, type: "success" })
+            setChange(`call useEffect${Math.random()}`)
         }
     }
 

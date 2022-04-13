@@ -25,7 +25,7 @@ const Add = (props) => {
 
     return (
         <>
-            <div className="Popup addPopup openTab" >
+            <div className="Popup addPopup" >
                 <div className="container">
                     <h3>Add</h3>
                     <div className="popupInputContainer" >

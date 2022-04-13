@@ -1,6 +1,7 @@
 import axios from "axios"
 
 const baseUrl = "http://localhost:8080/HRC_internship"
+const serverErrorMsg = "Something Went Wrong!!!"
 
 // Get Data
 export const requestGetData = async (page = 0, rowsPerPage = 10) => {
@@ -16,7 +17,7 @@ export const requestGetData = async (page = 0, rowsPerPage = 10) => {
 
     } catch (error) {
         console.log(error);
-        return { error: "Something Went Wrong!!!" }
+        return { error: serverErrorMsg }
     }
 }
 
@@ -36,7 +37,7 @@ export const requestAddData = async (reqData) => {
 
     } catch (error) {
         console.log(error);
-        return { error: "Something Went Wrong!!!" }
+        return { error: serverErrorMsg }
     }
 }
 
@@ -65,9 +66,8 @@ export const requestUpdateData = async (reqData, slno) => {
 
     } catch (error) {
         console.log(error);
-        return { error: "Something Went Wrong!!!" }
+        return { error: serverErrorMsg }
     }
-
 }
 
 // Delete Data
@@ -86,7 +86,7 @@ export const requestDeleteData = async (slno) => {
 
     } catch (error) {
         console.log(error);
-        return { error: "Something Went Wrong!!!" }
+        return { error: serverErrorMsg }
     }
 }
 
@@ -110,7 +110,7 @@ export const requestNormalSearch = async (reqData, page = 0, rowsPerPage = 10) =
         return [data, count]
     } catch (error) {
         console.log(error);
-        return { error: "Something Went Wrong!!!" }
+        return { error: serverErrorMsg }
     }
 }
 
@@ -141,7 +141,7 @@ export const requestAdvanceSearch = async (reqData, page = 0, rowsPerPage = 10) 
 
     } catch (error) {
         console.log(error);
-        return { error: "Something Went Wrong!!!" }
+        return { error: serverErrorMsg }
     }
 }
 
@@ -157,6 +157,38 @@ export const requestAnalytialData = async (reqData) => {
 
     } catch (error) {
         console.log(error);
-        return { error: "Something Went Wrong!!!" }
+        return { error: serverErrorMsg }
+    }
+}
+
+// Aging Bucket
+export const requestAgingBucket = async (reqData) => {
+
+    const link = `http://127.0.0.1:5000/get_prediction`
+    const reqBody = { data: reqData }
+    let update = []
+    try {
+
+        const { data } = await axios.post(link, reqBody)
+
+        // processing data to update in DB
+        reqData.map((id, i) => {
+            data.map(d => {
+                if (parseInt(d.doc_id) === id)
+                    reqData.splice(i, 1)
+            })
+        })
+        data.map(d => {
+            d.doc_id = parseInt(d.doc_id)
+            update.push(d)
+        })
+        reqData.map(id => update.push({ aging_bucket: "N/A", doc_id: id }))
+
+        const res = await axios.post(baseUrl + "/UpdatePrediction", update)
+        return res.data
+
+    } catch (error) {
+        console.log(error);
+        return { error: serverErrorMsg }
     }
 }

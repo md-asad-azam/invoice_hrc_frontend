@@ -1,5 +1,5 @@
 .TableDataGridContainer{
-    padding-top: 10vmax;
+    padding-top: 16vh;
     min-height: 70vh;
     background: var(--background2) !important;
 }

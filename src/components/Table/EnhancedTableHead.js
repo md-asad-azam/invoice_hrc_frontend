@@ -82,6 +82,10 @@ const EnhancedTableHead = (props) => {
       id: 'invoice_id',
       label: 'Invoice id',
     },
+    {
+      id: 'aging_bucket',
+      label: 'Aging Bucket',
+    },
   ];
 
   return (

@@ -8,8 +8,9 @@ import CustomAlert from './CustomAlert'
 import TableDataGrid from './Table/TableDataGrid'
 import React, { useEffect, useState } from 'react'
 import AdvanceSearch from './popups/AdvanceSearch';
-import { getTodaysDate } from '../utility/utilFunc'
-import { requestGetData, requestNormalSearch } from '../utility/requestServer'
+import { getTodaysDate } from '../utility/getDate'
+import RefreshIcon from '@mui/icons-material/Refresh';
+import { requestAgingBucket, requestGetData, requestNormalSearch } from '../utility/requestServer'
 
 
 const Header = () => {
@@ -17,6 +18,7 @@ const Header = () => {
     const today = getTodaysDate()
 
     const [page, setPage] = useState(0);
+    const [change, setChange] = useState("") //this state is changed to call useEffect whenever we want
     const [selected, setSelected] = useState([])
     const [totalCount, setTotalCount] = useState(0)
     const [customerId, setCustomerId] = useState("")
@@ -24,6 +26,7 @@ const Header = () => {
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [showAlert, setShowAlert] = useState({ open: false, message: "", type: "" })
 
+    // States to manage the popup open/close state
     const [openAdvSearch, setOpenAdvSearch] = useState(false)
     const [openAddPopup, setOpenAddPopup] = useState(false)
     const [openEditPopup, setOpenEditPopup] = useState(false)
@@ -48,6 +51,33 @@ const Header = () => {
         invoice_id: "",
     })
 
+    const refreshData = () => {
+        setPage(0)
+        setSelected([])
+        setTotalCount(0)
+        setDisplayData([])
+        setCustomerId("")
+        getData()
+    }
+
+    const getPrediction = async () => {
+        if (selected.length === 0) {
+            setShowAlert({ open: true, message: "No Rows Selected To Predict !", type: "error" })
+        } else {
+            let docId = selected.map(item => {
+                let doc = displayData.find(d => d.sl_no === item)
+                return parseInt(doc.doc_id)
+            })
+            const res = await requestAgingBucket(docId)
+            if (res.error) {
+                setShowAlert({ open: true, message: res.error, type: "error" })
+            } else {
+                setShowAlert({ open: true, message: res.success, type: res.type })
+                getData() //Fetching updated data
+            }
+        }
+    }
+
     const getData = async () => {
         let res
         if (customerId !== "") {
@@ -68,11 +98,12 @@ const Header = () => {
 
         getData()
 
-    }, [page, rowsPerPage])
+    }, [page, rowsPerPage, change])
 
     return (
         <>
             {showAlert.open && <CustomAlert showAlert={showAlert} setShowAlert={setShowAlert} />}
+            
             <div className="topHead">
                 <div className="headerContainer">
                     <img src="/abcProduct.png" id='first' alt="logo1" />
@@ -80,9 +111,10 @@ const Header = () => {
                 </div>
                 <div className="buttonsContainer">
                     <div className="firstThreeButtonsContainer">
-                        <button className="btn">PREDICT</button>
+                        <button className="btn" onClick={() => getPrediction()}>PREDICT</button>
                         <button className="btn" onClick={() => setOpenAnalyticsPopup(true)}>ANALYTICS VIEW</button>
                         <button className="btn" onClick={() => setOpenAdvSearch(true)}>ADVANCE SEARCH</button>
+                        <button className="btn refreshBtn" onClick={() => refreshData()}><RefreshIcon /></button>
                     </div>
                     <Search
                         page={page}
@@ -123,12 +155,14 @@ const Header = () => {
                 data={data}
                 setData={setData}
                 selected={selected}
+                setChange={setChange}
                 setShowAlert={setShowAlert}
                 setOpenEditPopup={setOpenEditPopup}
             />}
 
             {openDeletePopup && <Delete
                 selected={selected}
+                setChange={setChange}
                 setShowAlert={setShowAlert}
                 setOpenDeletePopup={setOpenDeletePopup}
             />}

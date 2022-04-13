@@ -58,7 +58,7 @@ const Chart = (props) => {
                         setOpenChart(false)
                         setOpenAnalyticsPopup(false)
                     }}>
-                    <CloseIcon />
+                    <CloseIcon sx={{color: "black !important"}}/>
                 </div>
                 <div className="barContainer" >
                     <h2>Business Information</h2>

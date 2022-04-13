@@ -50,11 +50,16 @@
 }
 .btn{
     color: white;
-    padding: 0.5vmax 2vmax;
+    padding: 0vmax 2vmax;
+    height: 2.5vmax;
+    cursor: pointer;
     border: 0.1vmax solid var(--light-blue);
     background: transparent;
     font: 500 1.2vmax var(--my-font);
     transition: background-color 0.5s, border-color 0.5s;
+}
+.refreshBtn{
+    padding: 0 !important;
 }
 .btn:hover{
     background-color: var(--light-blue);
@@ -90,7 +95,7 @@
     top: 0;
     height: 2vmax;
     width: 2vmax;
-    color: var(--light-blue);
+    color: var(--light-blue) !important;
     cursor: pointer;
 }
 .lastThreeButtonsContainer > .btn{
@@ -171,7 +176,7 @@
 
 .addPopup > div{
     height: 85vh;
-    width: 90vw;
+    width: 80vw;
 }
 .addPopup > div > .popupInputContainer{
     height: 40%;
@@ -242,13 +247,16 @@
 }
 #invoice_input{
     width: 10vw;
+    height: 5vh;
 }
 #invoice_input::placeholder{
     font: 400 1vmax var(--my-font);
 }
+#invoice_input > option{
+    color: var(--light-blue);
+    background-color: var(--background3);
+}
 
-
-/* Utilitu classes */
 .inputPlaceholder{
     position: relative;
     height: 6vh;

@@ -31,9 +31,6 @@ const Theme = createTheme({
                     borderBottom: "0.1vmax solid white",
                     fontSize: "1vmax",
                 },
-                paddingCheckbox: {
-                    // width: "1vmax !important",
-                },
             },
         },
         MuiTablePagination: {
@@ -78,11 +75,17 @@ const Theme = createTheme({
         MuiSvgIcon: {
             styleOverrides: {
                 root: {
-                    color: "white !important",
                     fontSize: "1.5vmax !important",
                     marginRight: "0.4vmax !important",
-                    marginLeft: "0.4vmax !important"
+                    marginLeft: "0.4vmax !important",
                 },
+            },
+        },
+        MuiSelect: {
+            styleOverrides: {
+                icon: {
+                    color: "white !important",
+                }
             },
         },
         MuiIconButton: {
@@ -91,6 +94,30 @@ const Theme = createTheme({
                     padding: "0.8vmax",
                     fontSize: "1.2vmax"
                 },
+            },
+        },
+        MuiTableSortLabel: {
+            styleOverrides: {
+                root: {
+                    "&.Mui-active": {
+                        color: "var(--light-blue) !important",
+                    },
+                    "&:hover": {
+                        color: "var(--light-blue) !important",
+                    }
+                },
+                icon: {
+                    color: "var(--light-blue) !important",
+                }
+            },
+        },
+        MuiAlert: {
+            styleOverrides: {
+                action: {
+                    padding: "0 !important",
+                    marginRight: "-0.5vmax",
+                    marginTop: "-0.2vmax"
+                }
             },
         },
     },
