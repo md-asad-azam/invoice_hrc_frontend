@@ -28,7 +28,7 @@ const AdvanceSearch = (props) => {
 
     return (
         <>
-            <div className="Popup advSearchPopup openTab">
+            <div className="Popup advSearchPopup">
                 <div className="container">
                     <h3>Advance Search</h3>
                     <div className="popupInputContainer" >

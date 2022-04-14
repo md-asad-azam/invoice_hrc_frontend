@@ -26,7 +26,7 @@ const Header = () => {
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [showAlert, setShowAlert] = useState({ open: false, message: "", type: "" })
 
-    // States to manage the popup open/close state
+    // States to manage the popup open/close state of popups
     const [openAdvSearch, setOpenAdvSearch] = useState(false)
     const [openAddPopup, setOpenAddPopup] = useState(false)
     const [openEditPopup, setOpenEditPopup] = useState(false)
@@ -179,11 +179,7 @@ const Header = () => {
                 setRowsPerPage={setRowsPerPage}
             />}
             {openAnalyticsPopup && <Analytics
-                data={data}
                 today={today}
-                setData={setData}
-                selected={selected}
-                setShowAlert={setShowAlert}
                 setOpenAnalyticsPopup={setOpenAnalyticsPopup}
             />}
 

@@ -166,12 +166,23 @@ export const requestAgingBucket = async (reqData) => {
 
     const link = `http://127.0.0.1:5000/get_prediction`
     const reqBody = { data: reqData }
-    let update = []
+
     try {
 
         const { data } = await axios.post(link, reqBody)
 
-        // processing data to update in DB
+        const updateData = processData(reqData, data)
+
+        const res = await axios.post(baseUrl + "/UpdatePrediction", updateData)
+        return res.data
+
+    } catch (error) {
+        console.log(error);
+        return { error: serverErrorMsg }
+    }
+    // processing data to update in DB
+    function processData(reqData, data) {
+        let update = []
         reqData.map((id, i) => {
             data.map(d => {
                 if (parseInt(d.doc_id) === id)
@@ -183,12 +194,6 @@ export const requestAgingBucket = async (reqData) => {
             update.push(d)
         })
         reqData.map(id => update.push({ aging_bucket: "N/A", doc_id: id }))
-
-        const res = await axios.post(baseUrl + "/UpdatePrediction", update)
-        return res.data
-
-    } catch (error) {
-        console.log(error);
-        return { error: serverErrorMsg }
+        return update
     }
 }

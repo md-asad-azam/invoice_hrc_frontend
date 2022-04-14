@@ -6,7 +6,6 @@ const Analytics = (props) => {
 
     const {
         today,
-        setShowAlert,
         setOpenAnalyticsPopup,
     } = props
 
